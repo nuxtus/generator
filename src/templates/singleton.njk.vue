@@ -7,6 +7,6 @@
 </script>
 
 <template>
-  <h1>{{ {$ collection $} }}</h1>
+  <h1>{$ collection | capitalize $}</h1>
   {{ item }}
 </template>

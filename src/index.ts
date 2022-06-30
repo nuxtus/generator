@@ -4,8 +4,6 @@ import * as path from "path"
 
 import chalk from "chalk"
 
-// process.env.FORCE_COLOR = "true"
-
 function createSingletonPage(
 	pageName: string,
 	localChalk: typeof chalk | undefined = undefined
