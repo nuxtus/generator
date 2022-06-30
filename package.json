@@ -1,0 +1,42 @@
+{
+  "name": "@nuxt/generator",
+  "version": "1.0.0",
+  "description": "Package responsible for generating a Nuxt page from Directus collection.",
+  "main": "index.ts",
+  "module": "dist/generator.es.js",
+  "browser": "dist/generator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "lint": "eslint --fix 'src/**/*.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuxtus/generator.git"
+  },
+  "keywords": [
+    "Nuxt",
+    "Directus",
+    "generator"
+  ],
+  "author": "Craig Harman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nuxtus/generator/issues"
+  },
+  "homepage": "https://github.com/nuxtus/generator#readme",
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "eslint": "^8.18.0",
+    "rollup": "^2.75.7",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  }
+}
