@@ -39,7 +39,19 @@ export function createPage(
 	isSingleton: boolean,
 	localChalk: typeof chalk | undefined = undefined
 ): void {
-	nunjucks.configure(path.join(__dirname, "templates"), {
+	let templateFolder = path.join(__dirname, "templates")
+	if (!fs.existsSync(templateFolder)) {
+		templateFolder = path.join(
+			process.cwd(),
+			"node_modules",
+			"@nuxtus",
+			"generator",
+			"dist",
+			"templates"
+		)
+	}
+	console.group(templateFolder)
+	nunjucks.configure(templateFolder, {
 		tags: {
 			blockStart: "<%",
 			blockEnd: "%>",
@@ -49,6 +61,9 @@ export function createPage(
 			commentEnd: "#>",
 		},
 	})
+	if (!fs.existsSync("pages")) {
+		fs.mkdirSync("pages")
+	}
 	if (isSingleton) {
 		return createSingletonPage(pageName, localChalk)
 	}
