@@ -16,7 +16,11 @@ function createSingletonPage(
 		throw err
 	}
 	const pageFile = path.join(pageFolder, `index.vue`)
-	const indexContent: string = nunjucks.render("singleton.njk.vue", {
+	const env = new nunjucks.Environment()
+	env.addFilter("ucfirst", function (str) {
+		return str[0].toUpperCase() + str.substring(1)
+	})
+	const indexContent: string = env.render("singleton.njk.vue", {
 		collection: pageName,
 	})
 	fs.writeFileSync(pageFile, indexContent)
@@ -51,7 +55,7 @@ export function createPage(
 		)
 	}
 	console.group(templateFolder)
-	nunjucks.configure(templateFolder, {
+	const env = nunjucks.configure(templateFolder, {
 		tags: {
 			blockStart: "<%",
 			blockEnd: "%>",
@@ -60,6 +64,9 @@ export function createPage(
 			commentStart: "<#",
 			commentEnd: "#>",
 		},
+	})
+	env.addFilter("ucfirst", function (str) {
+		return str[0].toUpperCase() + str.substring(1)
 	})
 	if (!fs.existsSync("pages")) {
 		fs.mkdirSync("pages")
@@ -77,11 +84,11 @@ export function createPage(
 
 	const indexFile = path.join(pageFolder, "index.vue")
 	const individualFile = path.join(pageFolder, "[id].vue")
-	const indexContent: string = nunjucks.render("index.njk.vue", {
+	const indexContent: string = env.render("index.njk.vue", {
 		collection: pageName,
 	})
 	fs.writeFileSync(indexFile, indexContent)
-	const itemContent: string = nunjucks.render("individual.njk.vue", {
+	const itemContent: string = env.render("individual.njk.vue", {
 		collection: pageName,
 	})
 	fs.writeFileSync(individualFile, itemContent)
