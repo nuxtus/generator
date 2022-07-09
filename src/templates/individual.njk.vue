@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { components } from "../../interfaces/nuxtus";
-  type {$ collection | ucfirst $} = components["schemas"]["Items{$ collection | ucfirst $}"];
+  type {$ collection | camelcase $} = components["schemas"]["Items{$ collection | camelcase $}"];
   const route = useRoute()
   const { getItemById } = useDirectusItems();
-  const {$ collection | lower $}: {$ collection | ucfirst $} = await getItemById({
+  const {$ collection | lower $}: {$ collection | camelcase $} = await getItemById({
     collection: "{$ collection $}",
     id: route.params.id,
   });
@@ -11,7 +11,7 @@
 
 <template>
   <div>
-    <h1>{$ collection | ucfirst $}</h1>
+    <h1>{$ collection | camelcase $}</h1>
     <div>{{ {$ collection | lower $} }}</div>
   </div>
 </template>

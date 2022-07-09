@@ -4,6 +4,11 @@ import * as path from "path"
 
 import chalk from "chalk"
 
+const toCamelCase = (e: string) => {
+	e = e.replace(/_([a-z])/g, (g) => g[1].toUpperCase())
+	return e[0].toUpperCase() + e.slice(1)
+}
+
 function createSingletonPage(
 	pageName: string,
 	localChalk: typeof chalk | undefined = undefined
@@ -17,9 +22,7 @@ function createSingletonPage(
 	}
 	const pageFile = path.join(pageFolder, `index.vue`)
 	const env = new nunjucks.Environment()
-	env.addFilter("ucfirst", function (str) {
-		return str[0].toUpperCase() + str.substring(1)
-	})
+	env.addFilter("camelcase", toCamelCase)
 	const indexContent: string = env.render("singleton.njk.vue", {
 		collection: pageName,
 	})
@@ -65,9 +68,7 @@ export function createPage(
 			commentEnd: "#>",
 		},
 	})
-	env.addFilter("ucfirst", function (str) {
-		return str[0].toUpperCase() + str.substring(1)
-	})
+	env.addFilter("camelcase", toCamelCase)
 	if (!fs.existsSync("pages")) {
 		fs.mkdirSync("pages")
 	}

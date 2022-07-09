@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { components } from "../../interfaces/nuxtus";
-  type {$ collection | ucfirst $} = components["schemas"]["Items{$ collection | ucfirst $}"];
+  type {$ collection | camelcase $} = components["schemas"]["Items{$ collection | camelcase $}"];
   const { getItems } = useDirectusItems();
   const filters = {/* Put your filters here */};
-  const items: {$ collection | ucfirst $}[] = await getItems<any>({
+  const items: {$ collection | camelcase $}[] = await getItems<any>({
     collection: "{$ collection $}",
     params: {
       filter: filters,
