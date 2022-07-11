@@ -11,6 +11,7 @@ const toCamelCase = (e: string) => {
 
 function createSingletonPage(
 	pageName: string,
+	env: nunjucks.Environment,
 	localChalk: typeof chalk | undefined = undefined
 ): void {
 	const pageFolder = path.join("pages", pageName)
@@ -21,8 +22,6 @@ function createSingletonPage(
 		throw err
 	}
 	const pageFile = path.join(pageFolder, `index.vue`)
-	const env = new nunjucks.Environment()
-	env.addFilter("camelcase", toCamelCase)
 	const indexContent: string = env.render("singleton.njk.vue", {
 		collection: pageName,
 	})
@@ -58,7 +57,7 @@ export function createPage(
 		)
 	}
 
-	const env = nunjucks.configure(templateFolder, {
+	const env: nunjucks.Environment = nunjucks.configure(templateFolder, {
 		tags: {
 			blockStart: "<%",
 			blockEnd: "%>",
@@ -73,7 +72,7 @@ export function createPage(
 		fs.mkdirSync("pages")
 	}
 	if (isSingleton) {
-		return createSingletonPage(pageName, localChalk)
+		return createSingletonPage(pageName, env, localChalk)
 	}
 	const pageFolder = path.join("pages", pageName)
 	try {

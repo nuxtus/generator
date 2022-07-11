@@ -26,3 +26,13 @@ test("Create collection pages", () => {
 		individualPage.includes("const { getItemById } = useDirectusItems()")
 	).toBe(true)
 })
+
+test("Create singleton page", () => {
+	createPage("test2", true)
+	expect(fs.existsSync("pages/test2/index.vue")).toBe(true)
+	const indexPage = fs.readFileSync("pages/test2/index.vue")
+	expect(indexPage.includes('collection: "test2"')).toBe(true)
+	expect(
+		indexPage.includes(` const { getSingletonItem } = useDirectusItems();`)
+	).toBe(true)
+})
