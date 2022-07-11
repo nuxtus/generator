@@ -46,5 +46,35 @@
   "dependencies": {
     "chalk": "^5.0.1",
     "nunjucks": "^3.2.3"
+  },
+  "release": {
+    "branches": "main",
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "releaseRules": [
+            {
+              "type": "revert",
+              "release": "patch"
+            },
+            {
+              "type": "refactor",
+              "release": "minor"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogTitle": "Changelog"
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ]
   }
 }
