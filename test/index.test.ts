@@ -1,14 +1,10 @@
-import { afterEach, assert, expect, test } from "vitest"
+import { afterEach, expect, test } from "vitest"
 
 import { createPage } from "../src/index"
 import fs from "node:fs"
 import path from "node:path"
 
 afterEach(() => {
-	// const pageFolder = path.join("pages", "test")
-	// fs.rmSync(pageFolder, { recursive: true })
-	// const pageFolder2 = path.join("pages", "test2")
-	// fs.rmSync(pageFolder2, { recursive: true })
 	fs.rmSync("pages", { recursive: true })
 })
 
