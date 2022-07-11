@@ -1,6 +1,6 @@
 {
   "name": "@nuxtus/generator",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Package responsible for generating a Nuxt page from Directus collection.",
   "main": "dist/generator.js",
   "module": "dist/generator.es.js",
@@ -36,23 +36,23 @@
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.3",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.5",
+    "@semantic-release/release-notes-generator": "^10.0.3",
     "@types/nunjucks": "^3.2.1",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "eslint": "^8.18.0",
     "rollup": "^2.75.7",
     "rollup-plugin-copy-assets": "^2.0.3",
+    "semantic-release": "^19.0.3",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
     "vitest": "^0.18.0"
   },
   "dependencies": {
-    "@semantic-release/changelog": "^6.0.1",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^8.0.5",
-    "@semantic-release/release-notes-generator": "^10.0.3",
     "chalk": "^5.0.1",
-    "nunjucks": "^3.2.3",
-    "semantic-release": "^19.0.3"
+    "nunjucks": "^3.2.3"
   },
   "release": {
     "branches": "main",

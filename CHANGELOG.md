@@ -1,5 +1,12 @@
 Changelog
 
+## [1.1.2](https://github.com/nuxtus/generator/compare/v1.1.1...v1.1.2) (2022-07-11)
+
+
+### Bug Fixes
+
+* include dist in build step ([3dc3d3f](https://github.com/nuxtus/generator/commit/3dc3d3f2ae514b7b70bd3a15e18d419308683ebb))
+
 ## [1.1.1](https://github.com/nuxtus/generator/compare/v1.1.0...v1.1.1) (2022-07-11)
 
 
