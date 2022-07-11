@@ -57,7 +57,7 @@ export function createPage(
 			"templates"
 		)
 	}
-	console.group(templateFolder)
+
 	const env = nunjucks.configure(templateFolder, {
 		tags: {
 			blockStart: "<%",
