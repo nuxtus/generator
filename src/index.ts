@@ -4,6 +4,11 @@ import * as path from "path"
 
 import chalk from "chalk"
 
+const toCamelCase = (e: string) => {
+	e = e.replace(/_([a-z])/g, (g) => g[1].toUpperCase())
+	return e[0].toUpperCase() + e.slice(1)
+}
+
 function createSingletonPage(
 	pageName: string,
 	localChalk: typeof chalk | undefined = undefined
@@ -16,7 +21,9 @@ function createSingletonPage(
 		throw err
 	}
 	const pageFile = path.join(pageFolder, `index.vue`)
-	const indexContent: string = nunjucks.render("singleton.njk.vue", {
+	const env = new nunjucks.Environment()
+	env.addFilter("camelcase", toCamelCase)
+	const indexContent: string = env.render("singleton.njk.vue", {
 		collection: pageName,
 	})
 	fs.writeFileSync(pageFile, indexContent)
@@ -51,7 +58,7 @@ export function createPage(
 		)
 	}
 	console.group(templateFolder)
-	nunjucks.configure(templateFolder, {
+	const env = nunjucks.configure(templateFolder, {
 		tags: {
 			blockStart: "<%",
 			blockEnd: "%>",
@@ -61,6 +68,7 @@ export function createPage(
 			commentEnd: "#>",
 		},
 	})
+	env.addFilter("camelcase", toCamelCase)
 	if (!fs.existsSync("pages")) {
 		fs.mkdirSync("pages")
 	}
@@ -77,11 +85,11 @@ export function createPage(
 
 	const indexFile = path.join(pageFolder, "index.vue")
 	const individualFile = path.join(pageFolder, "[id].vue")
-	const indexContent: string = nunjucks.render("index.njk.vue", {
+	const indexContent: string = env.render("index.njk.vue", {
 		collection: pageName,
 	})
 	fs.writeFileSync(indexFile, indexContent)
-	const itemContent: string = nunjucks.render("individual.njk.vue", {
+	const itemContent: string = env.render("individual.njk.vue", {
 		collection: pageName,
 	})
 	fs.writeFileSync(individualFile, itemContent)
