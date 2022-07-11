@@ -5,13 +5,15 @@ import fs from "node:fs"
 import path from "node:path"
 
 afterEach(() => {
-	const pageFolder = path.join("pages", "test")
-	fs.rmSync(pageFolder, { recursive: true })
-	const pageFolder2 = path.join("pages", "test2")
-	fs.rmSync(pageFolder2, { recursive: true })
+	// const pageFolder = path.join("pages", "test")
+	// fs.rmSync(pageFolder, { recursive: true })
+	// const pageFolder2 = path.join("pages", "test2")
+	// fs.rmSync(pageFolder2, { recursive: true })
+	fs.rmSync("pages", { recursive: true })
 })
 
 test("Create collection pages", async () => {
+	fs.mkdirSync("pages")
 	await createPage("test", false)
 	expect(fs.existsSync("pages/test")).toBe(true)
 	expect(fs.existsSync("pages/test/index.vue")).toBe(true)
@@ -28,6 +30,7 @@ test("Create collection pages", async () => {
 })
 
 test("Create singleton page", async () => {
+	fs.mkdirSync("pages")
 	await createPage("test2", true)
 	expect(fs.existsSync("pages/test2/index.vue")).toBe(true)
 	const indexPage = fs.readFileSync("pages/test2/index.vue")
