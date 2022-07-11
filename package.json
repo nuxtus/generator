@@ -1,6 +1,6 @@
 {
   "name": "@nuxtus/generator",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Package responsible for generating a Nuxt page from Directus collection.",
   "main": "dist/generator.js",
   "module": "dist/generator.es.js",
@@ -46,8 +46,13 @@
     "vitest": "^0.18.0"
   },
   "dependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.5",
+    "@semantic-release/release-notes-generator": "^10.0.3",
     "chalk": "^5.0.1",
-    "nunjucks": "^3.2.3"
+    "nunjucks": "^3.2.3",
+    "semantic-release": "^19.0.3"
   },
   "release": {
     "branches": "main",
