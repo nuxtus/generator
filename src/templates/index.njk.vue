@@ -1,7 +1,9 @@
 <script setup lang="ts">
+  import { components } from "../../interfaces/nuxtus";
+  type {$ collection | camelcase $} = components["schemas"]["Items{$ collection | camelcase $}"];
   const { getItems } = useDirectusItems();
   const filters = {/* Put your filters here */};
-  const items = await getItems<any>({
+  const items: {$ collection | camelcase $}[] = await getItems<any>({
     collection: "{$ collection $}",
     params: {
       filter: filters,
@@ -11,9 +13,9 @@
 
 <template>
   <ul v-if="items.length > 0">
-    <li v-for="item in items" :key="item.id">
-      <router-link :to="`/{$ collection $}/${item.id}`">
-        {{ item.id }}
+    <li v-for="{$ collection | lower $} in items" :key="{$ collection | lower $}.id">
+      <router-link :to="`/{$ collection $}/${{$ collection | lower $}.id}`">
+        {{ {$ collection | lower $}.id }}
       </router-link>
     </li>
   </ul>
