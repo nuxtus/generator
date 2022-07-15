@@ -51,7 +51,7 @@
     "vitest": "^0.18.0"
   },
   "dependencies": {
-    "@directus/sdk": "^10.1.0",
+    "@directus/sdk": "^10.1.1",
     "chalk": "^5.0.1",
     "nunjucks": "^3.2.3",
     "openapi-typescript": "^5.4.1"
