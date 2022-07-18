@@ -5,7 +5,7 @@
   const { getItemById } = useDirectusItems();
   const {$ collection | lower $}: {$ collection | camelcase $} = await getItemById({
     collection: "{$ collection $}",
-    id: route.params.id,
+    id: route.params.id as string,
   });
 </script>
 

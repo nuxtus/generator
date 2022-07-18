@@ -2,7 +2,7 @@
   "name": "@nuxtus/generator",
   "version": "1.1.2",
   "description": "Package responsible for generating a Nuxt page from Directus collection.",
-  "main": "dist/generator.js",
+  "main": "dist/generator.es.js",
   "module": "dist/generator.es.js",
   "scripts": {
     "test": "vitest",
@@ -51,8 +51,10 @@
     "vitest": "^0.18.0"
   },
   "dependencies": {
+    "@directus/sdk": "^10.1.1",
     "chalk": "^5.0.1",
-    "nunjucks": "^3.2.3"
+    "nunjucks": "^3.2.3",
+    "openapi-typescript": "^5.4.1"
   },
   "release": {
     "branches": "main",

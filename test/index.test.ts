@@ -1,16 +1,58 @@
-import { afterEach, expect, test } from "vitest"
+import { afterAll, afterEach, beforeAll, expect, test, vi } from "vitest"
 
-import { createPage } from "../src/index"
+import Generator from "../src/index"
 import fs from "node:fs"
-import path from "node:path"
+
+let nuxtus: Generator
+const envBackup = process.env
+
+beforeAll(() => {
+	process.env = {
+		DIRECTUS_URL: "https://example.com/api",
+	}
+
+	vi.mock("@directus/sdk", () => {
+		const Directus = vi.fn()
+		Directus.prototype.auth = {
+			login: vi.fn().mockImplementation(() => {
+				return {
+					expires: Date.now() + 100000,
+				}
+			}),
+		}
+		Directus.prototype.server = {
+			oas: vi.fn().mockImplementation(() => {
+				return {
+					data: {
+						openapi: "3.0.0",
+						components: {},
+					},
+				}
+			}),
+		}
+
+		return { Directus }
+	})
+
+	nuxtus = new Generator()
+})
 
 afterEach(() => {
-	fs.rmSync("pages", { recursive: true })
+	if (fs.existsSync("pages")) {
+		fs.rmSync("pages", { recursive: true })
+	}
+	if (fs.existsSync("interfaces")) {
+		fs.rmSync("interfaces", { recursive: true })
+	}
+})
+
+afterAll(() => {
+	process.env = envBackup
 })
 
 test("Create collection pages", async () => {
 	fs.mkdirSync("pages")
-	await createPage("test", false)
+	await nuxtus.createPage("test", false)
 	expect(fs.existsSync("pages/test")).toBe(true)
 	expect(fs.existsSync("pages/test/index.vue")).toBe(true)
 	const indexPage = fs.readFileSync("pages/test/index.vue")
@@ -27,11 +69,19 @@ test("Create collection pages", async () => {
 
 test("Create singleton page", async () => {
 	fs.mkdirSync("pages")
-	await createPage("test2", true)
+	await nuxtus.createPage("test2", true)
 	expect(fs.existsSync("pages/test2/index.vue")).toBe(true)
 	const indexPage = fs.readFileSync("pages/test2/index.vue")
 	expect(indexPage.includes('collection: "test2"')).toBe(true)
 	expect(
 		indexPage.includes(` const { getSingletonItem } = useDirectusItems();`)
 	).toBe(true)
+})
+
+test("create types", async () => {
+	fs.mkdirSync("interfaces")
+	await nuxtus.createTypes()
+	expect(fs.existsSync("interfaces/nuxtus.ts")).toBe(true)
+	const typeFile = fs.readFileSync("interfaces/nuxtus.ts")
+	expect(typeFile.includes("export interface paths")).toBe(true)
 })
