@@ -9,13 +9,14 @@ import openapiTS from "openapi-typescript"
  */
 export async function createTypes(
 	directus: Directus<TypeMap>,
-	chalk: typeof Chalk
+	chalk?: typeof Chalk
 ): Promise<void> {
+	if (chalk === undefined) chalk = Chalk
 	try {
 		const openapi = await directus.server.oas()
 
 		// console.log(JSON.stringify(openapi.data.components.schemas))
-		const types = await openapiTS(openapi.data)
+		const types = await openapiTS(openapi)
 		if (!fs.existsSync("interfaces")) {
 			fs.mkdirSync("interfaces")
 		}
