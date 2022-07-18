@@ -94,33 +94,33 @@ export default [
 	},
 
 	// CommonJS
-	{
-		input: inputFileName,
-		output: [
-			{
-				file: pkg.main,
-				format: "cjs",
-				sourcemap: "inline",
-				banner,
-				exports: "auto",
-			},
-		],
-		external: [
-			...Object.keys(pkg.dependencies || {}),
-			...Object.keys(pkg.devDependencies || {}),
-		],
-		plugins: [
-			pluginTypescript(),
-			pluginCommonjs({
-				extensions: [".js", ".ts"],
-			}),
-			babel({
-				babelHelpers: "bundled",
-				configFile: path.resolve(__dirname, ".babelrc.js"),
-			}),
-			pluginNodeResolve({
-				browser: false,
-			}),
-		],
-	},
+	// {
+	// 	input: inputFileName,
+	// 	output: [
+	// 		{
+	// 			file: pkg.main,
+	// 			format: "cjs",
+	// 			sourcemap: "inline",
+	// 			banner,
+	// 			exports: "auto",
+	// 		},
+	// 	],
+	// 	external: [
+	// 		...Object.keys(pkg.dependencies || {}),
+	// 		...Object.keys(pkg.devDependencies || {}),
+	// 	],
+	// 	plugins: [
+	// 		pluginTypescript(),
+	// 		pluginCommonjs({
+	// 			extensions: [".js", ".ts"],
+	// 		}),
+	// 		babel({
+	// 			babelHelpers: "bundled",
+	// 			configFile: path.resolve(__dirname, ".babelrc.js"),
+	// 		}),
+	// 		pluginNodeResolve({
+	// 			browser: false,
+	// 		}),
+	// 	],
+	// },
 ]

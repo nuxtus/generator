@@ -2,7 +2,6 @@ import { afterAll, afterEach, beforeAll, expect, test, vi } from "vitest"
 
 import Generator from "../src/index"
 import fs from "node:fs"
-import path from "node:path"
 
 let nuxtus: Generator
 const envBackup = process.env

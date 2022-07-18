@@ -19,6 +19,6 @@ export async function login(
 				"Cannot login to Directus. Check your .env file and that Directus is running."
 			)
 		)
-		throw new Error("Cannot login to Directus.")
+		throw new Error("Cannot login to Directus. " + err.message)
 	}
 }

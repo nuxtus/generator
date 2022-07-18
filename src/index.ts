@@ -1,11 +1,11 @@
-import { AuthResult, Directus, TypeMap } from "@directus/sdk"
+import { AuthResult, Directus, Item, ManyItems, TypeMap } from "@directus/sdk"
 
 import Chalk from "chalk"
 import { createPage } from "./pages"
 import { createTypes } from "./types"
 import { login } from "./login"
 
-export default class {
+export default class Generator {
 	chalk = Chalk
 	authToken: AuthResult | null = null
 	directus: Directus<TypeMap>
@@ -43,9 +43,6 @@ export default class {
 		}
 	}
 
-	// TODO: UPDATE TEST TO REFLECT NEW CLASS!
-	// TODO: WRITE createTypes to use new SDK oas endpoint
-
 	private validLogin(): boolean {
 		if (this.authToken === null) {
 			return false
@@ -66,5 +63,10 @@ export default class {
 	public async createTypes(): Promise<void> {
 		await this.login()
 		await createTypes(this.directus, this.chalk)
+	}
+
+	public async getCollections(): Promise<ManyItems<Item>> {
+		await this.login()
+		return this.directus.collections.readAll()
 	}
 }
