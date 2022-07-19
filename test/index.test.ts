@@ -23,10 +23,8 @@ beforeAll(() => {
 		Directus.prototype.server = {
 			oas: vi.fn().mockImplementation(() => {
 				return {
-					data: {
-						openapi: "3.0.0",
-						components: {},
-					},
+					openapi: "3.0.0",
+					components: {},
 				}
 			}),
 		}
