@@ -1,95 +1,72 @@
-import * as fs from "fs"
-import * as nunjucks from "nunjucks"
-import * as path from "path"
+import { AuthResult, Directus, Item, ManyItems, TypeMap } from "@directus/sdk"
 
-import chalk from "chalk"
+import Chalk from "chalk"
+import { createPage } from "./pages"
+import { createTypes } from "./types"
+import { login } from "./login"
 
-const toCamelCase = (e: string) => {
-	e = e.replace(/_([a-z])/g, (g) => g[1].toUpperCase())
-	return e[0].toUpperCase() + e.slice(1)
-}
+export default class Generator {
+	chalk = Chalk
+	authToken: AuthResult | null = null
+	directus: Directus<TypeMap>
 
-function createSingletonPage(
-	pageName: string,
-	env: nunjucks.Environment,
-	localChalk: typeof chalk | undefined = undefined
-): void {
-	const pageFolder = path.join("pages", pageName)
-	try {
-		fs.mkdirSync(pageFolder)
-	} catch (err: any) {
-		showError(err.message, localChalk)
-		throw err
-	}
-	const pageFile = path.join(pageFolder, `index.vue`)
-	const indexContent: string = env.render("singleton.njk.vue", {
-		collection: pageName,
-	})
-	fs.writeFileSync(pageFile, indexContent)
-	return
-}
+	constructor(private existingChalk?: typeof Chalk) {
+		if (existingChalk !== undefined) {
+			this.chalk = existingChalk
+		}
+		// Check it contains DIRECTUS_URL
+		if (
+			!process.env.hasOwnProperty("DIRECTUS_URL") ||
+			process.env.DIRECTUS_URL === undefined
+		) {
+			console.log(this.chalk.red("No .env file found."))
+			console.log()
+			console.log(
+				this.chalk.bold("Please add a .env file with the following content:")
+			)
+			console.log("DIRECTUS_URL=https://example.com/api")
+			console.log("DIRECTUS_TOKEN=123456789")
+			console.log("NUXT_PUBLIC_DIRECTUS_EMAIL=admin@test.com")
+			console.log("NUXT_PUBLIC_DIRECTUS_PASSWORD=password")
+			console.log()
 
-function showError(
-	error: string,
-	localChalk: typeof chalk | undefined = undefined
-): void {
-	if (localChalk) {
-		console.error(localChalk.red(error))
-		return
-	}
-	console.error(error)
-}
-
-export function createPage(
-	pageName: string,
-	isSingleton: boolean,
-	localChalk: typeof chalk | undefined = undefined
-): void {
-	let templateFolder = path.join(__dirname, "templates")
-	if (!fs.existsSync(templateFolder)) {
-		templateFolder = path.join(
-			process.cwd(),
-			"node_modules",
-			"@nuxtus",
-			"generator",
-			"dist",
-			"templates"
+			throw new Error("No .env file found.")
+		}
+		this.directus = new Directus(
+			process.env.DIRECTUS_URL || "http://localhost:3000"
 		)
 	}
 
-	const env: nunjucks.Environment = nunjucks.configure(templateFolder, {
-		tags: {
-			blockStart: "<%",
-			blockEnd: "%>",
-			variableStart: "{$",
-			variableEnd: "$}",
-			commentStart: "<#",
-			commentEnd: "#>",
-		},
-	})
-	env.addFilter("camelcase", toCamelCase)
-	if (!fs.existsSync("pages")) {
-		fs.mkdirSync("pages")
-	}
-	if (isSingleton) {
-		return createSingletonPage(pageName, env, localChalk)
-	}
-	const pageFolder = path.join("pages", pageName)
-	try {
-		fs.mkdirSync(pageFolder)
-	} catch (err: any) {
-		showError(err.message, localChalk)
-		throw err
+	public async login(): Promise<void> {
+		if (!this.validLogin()) {
+			this.authToken = await login(this.directus, this.chalk)
+		}
 	}
 
-	const indexFile = path.join(pageFolder, "index.vue")
-	const individualFile = path.join(pageFolder, "[id].vue")
-	const indexContent: string = env.render("index.njk.vue", {
-		collection: pageName,
-	})
-	fs.writeFileSync(indexFile, indexContent)
-	const itemContent: string = env.render("individual.njk.vue", {
-		collection: pageName,
-	})
-	fs.writeFileSync(individualFile, itemContent)
+	private validLogin(): boolean {
+		if (this.authToken === null) {
+			return false
+		}
+		if (this.authToken.expires < Date.now()) {
+			return false
+		}
+		return true
+	}
+
+	public async createPage(
+		collectionName: string,
+		singleton: boolean
+	): Promise<void> {
+		createPage(collectionName, singleton, this.chalk)
+	}
+
+	public async createTypes(): Promise<void> {
+		await this.login()
+		await createTypes(this.directus, this.chalk)
+	}
+
+	public async getCollections(): Promise<ManyItems<Item>> {
+		await this.login()
+		return this.directus.collections.readAll()
+	}
 }
