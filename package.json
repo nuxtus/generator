@@ -4,6 +4,7 @@
   "description": "Package responsible for generating a Nuxt page from Directus collection.",
   "main": "dist/generator.es.js",
   "module": "dist/generator.es.js",
+  "type": "module",
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage",
