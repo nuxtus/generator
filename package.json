@@ -1,6 +1,6 @@
 {
   "name": "@nuxtus/generator",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Package responsible for generating a Nuxt page from Directus collection.",
   "main": "dist/generator.es.js",
   "module": "dist/generator.es.js",

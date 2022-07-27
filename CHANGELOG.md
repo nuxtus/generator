@@ -1,5 +1,12 @@
 Changelog
 
+## [1.2.1](https://github.com/nuxtus/generator/compare/v1.2.0...v1.2.1) (2022-07-27)
+
+
+### Bug Fixes
+
+* :bug: change type to module in package.json ([66537ab](https://github.com/nuxtus/generator/commit/66537abb7340f98a97854825953363d1c3190782))
+
 # [1.2.0](https://github.com/nuxtus/generator/compare/v1.1.2...v1.2.0) (2022-07-21)
 
 
