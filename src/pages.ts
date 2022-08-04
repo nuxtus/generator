@@ -26,7 +26,7 @@ function createSingletonPage(
 		throw err
 	}
 	const pageFile = path.join(pageFolder, `index.vue`)
-	const indexContent: string = env.render("singleton.njk.vue", {
+	const indexContent: string = env.render("singleton.njk", {
 		collection: pageName,
 	})
 	fs.writeFileSync(pageFile, indexContent)
@@ -88,11 +88,11 @@ export function createPage(
 
 	const indexFile = path.join(pageFolder, "index.vue")
 	const individualFile = path.join(pageFolder, "[id].vue")
-	const indexContent: string = env.render("index.njk.vue", {
+	const indexContent: string = env.render("index.njk", {
 		collection: pageName,
 	})
 	fs.writeFileSync(indexFile, indexContent)
-	const itemContent: string = env.render("individual.njk.vue", {
+	const itemContent: string = env.render("individual.njk", {
 		collection: pageName,
 	})
 	fs.writeFileSync(individualFile, itemContent)

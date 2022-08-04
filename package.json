@@ -1,15 +1,18 @@
 {
   "name": "@nuxtus/generator",
   "version": "1.2.0",
-  "description": "Package responsible for generating a Nuxt page from Directus collection.",
-  "main": "dist/generator.es.js",
-  "module": "dist/generator.es.js",
+  "private": false,
   "type": "module",
-  "scripts": {
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "build": "rollup -c",
-    "lint": "eslint --fix 'src/**/*.ts'"
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/generator.umd.js",
+  "module": "./dist/generator.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/generator.es.js",
+      "require": "./dist/generator.umd.js"
+    }
   },
   "repository": {
     "type": "git",
@@ -30,32 +33,36 @@
     "url": "https://github.com/nuxtus/generator/issues"
   },
   "homepage": "https://github.com/nuxtus/generator#readme",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@directus/sdk": "^10.1.1",
+    "chalk": "^5.0.1",
+    "nunjucks": "^3.2.3",
+    "openapi-typescript": "^5.4.1",
+    "stream": "^0.0.2",
+    "url": "^0.11.0"
+  },
   "devDependencies": {
-    "@babel/core": "^7.18.6",
-    "@babel/preset-env": "^7.18.6",
-    "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^22.0.1",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "@rollup/plugin-typescript": "^8.3.3",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^8.0.5",
     "@semantic-release/release-notes-generator": "^10.0.3",
     "@types/nunjucks": "^3.2.1",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@vitejs/plugin-vue": "^3.0.0",
     "eslint": "^8.18.0",
-    "rollup": "^2.75.7",
-    "rollup-plugin-copy-assets": "^2.0.3",
     "semantic-release": "^19.0.3",
-    "tslib": "^2.4.0",
-    "typescript": "^4.7.4",
-    "vitest": "^0.18.0"
-  },
-  "dependencies": {
-    "@directus/sdk": "^10.1.1",
-    "chalk": "^5.0.1",
-    "nunjucks": "^3.2.3",
-    "openapi-typescript": "^5.4.1"
+    "typescript": "^4.6.4",
+    "vite": "^3.0.0",
+    "vite-plugin-copy": "^0.1.6",
+    "vitest": "^0.18.0",
+    "vue-tsc": "^0.38.4"
   },
   "release": {
     "branches": "main",
