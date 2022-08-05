@@ -33,6 +33,9 @@
     "url": "https://github.com/nuxtus/generator/issues"
   },
   "homepage": "https://github.com/nuxtus/generator#readme",
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
