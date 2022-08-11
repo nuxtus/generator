@@ -121,6 +121,11 @@ export default [
 	// 		pluginNodeResolve({
 	// 			browser: false,
 	// 		}),
+	// 		copy({
+	// 			assets: [
+	// 				"src/templates",
+	// 			],
+	// 		}),
 	// 	],
 	// },
 ]
