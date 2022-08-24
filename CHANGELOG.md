@@ -1,5 +1,12 @@
 Changelog
 
+## [1.2.2](https://github.com/nuxtus/generator/compare/v1.2.1...v1.2.2) (2022-08-24)
+
+
+### Bug Fixes
+
+* :bug: fix incorrect email address for directus login ([0894254](https://github.com/nuxtus/generator/commit/08942547499f36904a22901058d9a6eee1bb07a2))
+
 ## [1.2.1](https://github.com/nuxtus/generator/compare/v1.2.0...v1.2.1) (2022-07-27)
 
 
