@@ -54,6 +54,7 @@
   "dependencies": {
     "@directus/sdk": "^10.1.1",
     "chalk": "^5.0.1",
+    "nanoid": "^4.0.0",
     "nunjucks": "^3.2.3",
     "openapi-typescript": "^5.4.1"
   },
