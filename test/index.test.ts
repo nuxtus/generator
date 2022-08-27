@@ -20,6 +20,15 @@ beforeAll(() => {
 				}
 			}),
 		}
+		Directus.prototype.users = {
+			me: {
+				update: vi.fn().mockImplementation(() => {
+					return {
+						token: "123456789",
+					}
+				}),
+			}
+		},
 		Directus.prototype.server = {
 			oas: vi.fn().mockImplementation(() => {
 				return {
@@ -82,4 +91,9 @@ test("create types", async () => {
 	expect(fs.existsSync("interfaces/nuxtus.ts")).toBe(true)
 	const typeFile = fs.readFileSync("interfaces/nuxtus.ts")
 	expect(typeFile.includes("export interface paths")).toBe(true)
+})
+
+test("create token", async () => {
+	const authUser = await nuxtus.generateStaticToken()
+	expect(authUser.token).toBeDefined()
 })

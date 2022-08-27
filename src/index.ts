@@ -1,9 +1,10 @@
-import { AuthResult, Directus, Item, ManyItems, TypeMap } from "@directus/sdk"
+import { AuthResult, Directus, Item, ManyItems, PartialItem, TypeMap, UserItem } from "@directus/sdk"
 
 import Chalk from "chalk"
 import { createPage } from "./pages"
 import { createTypes } from "./types"
 import { login } from "./login"
+import { nanoid } from 'nanoid'
 
 export default class Generator {
 	chalk = Chalk
@@ -68,5 +69,12 @@ export default class Generator {
 	public async getCollections(): Promise<ManyItems<Item>> {
 		await this.login()
 		return this.directus.collections.readAll()
+	}
+
+	public async generateStaticToken(): Promise<PartialItem<UserItem<unknown>>> {
+		await this.login()
+		return this.directus.users.me.update({
+			token: nanoid(),
+		})
 	}
 }
