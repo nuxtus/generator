@@ -1,5 +1,12 @@
 Changelog
 
+# [1.3.0](https://github.com/nuxtus/generator/compare/v1.2.2...v1.3.0) (2022-08-27)
+
+
+### Features
+
+* :sparkles: generate static token for auth ([059af45](https://github.com/nuxtus/generator/commit/059af454e1a60669293b096ea3c7c96633c6216f))
+
 ## [1.2.2](https://github.com/nuxtus/generator/compare/v1.2.1...v1.2.2) (2022-08-24)
 
 
