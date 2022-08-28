@@ -6,6 +6,12 @@ export async function login(
 	directus: Directus<TypeMap>,
 	chalk: typeof Chalk
 ): Promise<AuthResult> {
+	if (Object.hasOwn(process.env, 'NUXT_PUBLIC_DIRECTUS_TOKEN') && process.env.NUXT_PUBLIC_DIRECTUS_TOKEN !== undefined) {
+		return {
+			access_token: process.env.NUXT_PUBLIC_DIRECTUS_TOKEN,
+			expires: Date.now() + 1000 * 60 * 60 * 24 * 365 // An arbitary expiry, Directus static tokens do not expire
+		}
+	}
 	// LOG IN
 	const email = process.env.NUXT_PUBLIC_DIRECTUS_EMAIL || ""
 	const password = process.env.NUXT_PUBLIC_DIRECTUS_PASSWORD || ""
