@@ -26,7 +26,6 @@ export default class Generator {
 				this.chalk.bold("Please add a .env file with the following content:")
 			)
 			console.log("DIRECTUS_URL=https://example.com/api")
-			console.log("DIRECTUS_TOKEN=123456789")
 			console.log("NUXT_PUBLIC_DIRECTUS_EMAIL=admin@example.com")
 			console.log("NUXT_PUBLIC_DIRECTUS_PASSWORD=password")
 			console.log()
