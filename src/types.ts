@@ -14,9 +14,7 @@ export async function createTypes(
 	if (chalk === undefined) chalk = Chalk
 	try {
 		const openapi = await directus.server.oas()
-
-		// console.log(JSON.stringify(openapi.data.components.schemas))
-		const types = await openapiTS(openapi)
+		const types = await openapiTS(await openapi)
 		if (!fs.existsSync("interfaces")) {
 			fs.mkdirSync("interfaces")
 		}
