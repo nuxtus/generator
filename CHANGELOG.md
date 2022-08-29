@@ -1,5 +1,17 @@
 Changelog
 
+# [1.4.0](https://github.com/nuxtus/generator/compare/v1.3.0...v1.4.0) (2022-08-29)
+
+
+### Bug Fixes
+
+* :bug: Directus static token login now works ([c4a3a18](https://github.com/nuxtus/generator/commit/c4a3a182552ad3f891fdc3bf6cdbec67e32568e6))
+
+
+### Features
+
+* :sparkles: use static token instead of logging in with email/password if set ([971de0e](https://github.com/nuxtus/generator/commit/971de0e09a9f3f5dcb7d8f3dfb8cdba2c574c118))
+
 # [1.3.0](https://github.com/nuxtus/generator/compare/v1.2.2...v1.3.0) (2022-08-27)
 
 
