@@ -1,5 +1,12 @@
 Changelog
 
+## [1.4.1](https://github.com/nuxtus/generator/compare/v1.4.0...v1.4.1) (2022-08-30)
+
+
+### Bug Fixes
+
+* :bug: return the newly created static token ([83c4fc1](https://github.com/nuxtus/generator/commit/83c4fc1fcadc76ccc9e8e72fef2c215449c3497e))
+
 # [1.4.0](https://github.com/nuxtus/generator/compare/v1.3.0...v1.4.0) (2022-08-29)
 
 
