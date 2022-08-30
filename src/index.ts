@@ -71,9 +71,11 @@ export default class Generator {
 	}
 
 	public async generateStaticToken(): Promise<PartialItem<UserItem<unknown>>> {
-		await this.login()
-		return this.directus.users.me.update({
-			token: nanoid(),
-		})
+		await this.login();
+		const token = {
+			token: nanoid()
+		}
+		this.directus.users.me.update(token);
+		return token;
 	}
 }
