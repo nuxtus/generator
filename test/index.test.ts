@@ -85,6 +85,13 @@ test("Create singleton page", async () => {
 	).toBe(true)
 })
 
+test("Delete collection pages", async () => {
+	fs.mkdirSync("pages")
+	await nuxtus.createPage("test3", true)
+	await nuxtus.deletePage("test3")
+	expect(fs.existsSync("pages/test3")).toBe(false)
+})
+
 test("create types", async () => {
 	fs.mkdirSync("interfaces")
 	await nuxtus.createTypes()
