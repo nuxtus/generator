@@ -88,7 +88,7 @@ test("Create singleton page", async () => {
 test("Delete collection pages", async () => {
 	fs.mkdirSync("pages")
 	await nuxtus.createPage("test3", true)
-	nuxtus.deletePage("test3")
+	await nuxtus.deletePage("test3")
 	expect(fs.existsSync("pages/test3")).toBe(false)
 })
 
