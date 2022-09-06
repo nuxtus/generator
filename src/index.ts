@@ -1,7 +1,7 @@
 import { AuthResult, Directus, Item, ManyItems, PartialItem, TypeMap, UserItem } from "@directus/sdk"
+import { createPage, deletePage } from "./pages"
 
 import Chalk from "chalk"
-import { createPage } from "./pages"
 import { createTypes } from "./types"
 import { login } from "./login"
 import { nanoid } from 'nanoid'
@@ -58,6 +58,12 @@ export default class Generator {
 		singleton: boolean
 	): Promise<void> {
 		createPage(collectionName, singleton, this.chalk)
+	}
+
+	public async deletePage(
+		collectionName: string
+	): Promise<void> {
+		deletePage(collectionName, this.chalk)
 	}
 
 	public async createTypes(): Promise<void> {
