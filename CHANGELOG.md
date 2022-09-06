@@ -1,5 +1,12 @@
 Changelog
 
+# [1.5.0](https://github.com/nuxtus/generator/compare/v1.4.1...v1.5.0) (2022-09-06)
+
+
+### Features
+
+* :sparkles: add ability to delete pages ([75e4325](https://github.com/nuxtus/generator/commit/75e43251d3a6f2df5173f0694074065be2b0b842))
+
 ## [1.4.1](https://github.com/nuxtus/generator/compare/v1.4.0...v1.4.1) (2022-08-30)
 
 
