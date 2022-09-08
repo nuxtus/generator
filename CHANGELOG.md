@@ -1,5 +1,31 @@
 Changelog
 
+# [1.5.0](https://github.com/nuxtus/generator/compare/v1.4.1...v1.5.0) (2022-09-06)
+
+
+### Features
+
+* :sparkles: add ability to delete pages ([75e4325](https://github.com/nuxtus/generator/commit/75e43251d3a6f2df5173f0694074065be2b0b842))
+
+## [1.4.1](https://github.com/nuxtus/generator/compare/v1.4.0...v1.4.1) (2022-08-30)
+
+
+### Bug Fixes
+
+* :bug: return the newly created static token ([83c4fc1](https://github.com/nuxtus/generator/commit/83c4fc1fcadc76ccc9e8e72fef2c215449c3497e))
+
+# [1.4.0](https://github.com/nuxtus/generator/compare/v1.3.0...v1.4.0) (2022-08-29)
+
+
+### Bug Fixes
+
+* :bug: Directus static token login now works ([c4a3a18](https://github.com/nuxtus/generator/commit/c4a3a182552ad3f891fdc3bf6cdbec67e32568e6))
+
+
+### Features
+
+* :sparkles: use static token instead of logging in with email/password if set ([971de0e](https://github.com/nuxtus/generator/commit/971de0e09a9f3f5dcb7d8f3dfb8cdba2c574c118))
+
 # [1.3.0](https://github.com/nuxtus/generator/compare/v1.2.2...v1.3.0) (2022-08-27)
 
 
