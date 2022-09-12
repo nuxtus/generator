@@ -47,7 +47,7 @@ function showError(
 export function deletePage(pageName: string, localChalk: typeof chalk | undefined = undefined): void {
 	const pageFolder = path.join("pages", pageName)
 	try {
-		fs.rmdirSync(pageFolder, { recursive: true })
+		fs.rmSync(pageFolder, { recursive: true })
 	} catch (err: any) {
 		showError(err.message, localChalk)
 		throw err
