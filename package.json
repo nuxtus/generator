@@ -1,6 +1,6 @@
 {
   "name": "@nuxtus/generator",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Package responsible for generating a Nuxt page from Directus collection.",
   "main": "dist/generator.es.js",
   "module": "dist/generator.es.js",
@@ -36,7 +36,6 @@
     "@rollup/plugin-babel": "5.3.1",
     "@rollup/plugin-commonjs": "22.0.2",
     "@rollup/plugin-node-resolve": "14.0.1",
-    "@rollup/plugin-typescript": "8.3.3",
     "@rollup/plugin-typescript": "8.5.0",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/git": "10.0.1",
