@@ -1,5 +1,7 @@
 Changelog
 
+# [1.7.0](https://github.com/nuxtus/generator/compare/v1.6.0...v1.7.0) (2022-09-13)
+
 # [1.6.0](https://github.com/nuxtus/generator/compare/v1.5.0...v1.6.0) (2022-09-12)
 
 # [1.5.0](https://github.com/nuxtus/generator/compare/v1.4.1...v1.5.0) (2022-09-06)
