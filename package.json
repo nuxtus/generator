@@ -56,7 +56,7 @@
     "chalk": "^5.0.1",
     "nanoid": "^4.0.0",
     "nunjucks": "^3.2.3",
-    "openapi-typescript": "^5.4.1"
+    "openapi-typescript": "^6.0.0"
   },
   "release": {
     "branches": "main",
