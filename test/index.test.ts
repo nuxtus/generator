@@ -97,7 +97,7 @@ test("create types", async () => {
 	await nuxtus.createTypes()
 	expect(fs.existsSync("interfaces/nuxtus.ts")).toBe(true)
 	const typeFile = fs.readFileSync("interfaces/nuxtus.ts")
-	expect(typeFile.includes("export interface paths")).toBe(true)
+	expect(typeFile.includes("export type paths = Record<string, never>;")).toBe(true)
 })
 
 test("create token", async () => {
