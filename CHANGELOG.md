@@ -1,5 +1,22 @@
 Changelog
 
+# [1.8.0](https://github.com/nuxtus/generator/compare/v1.7.0...v1.8.0) (2022-11-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency openapi-typescript to v6 ([6876fef](https://github.com/nuxtus/generator/commit/6876fef057042649097e2d648406ace7c27d5382))
+
+
+### Code Refactoring
+
+* :recycle: Move configuration into Nuxtus property ([beb3b6a](https://github.com/nuxtus/generator/commit/beb3b6a365ce15f5cfdd00ccebbea652116a5965))
+
+
+### BREAKING CHANGES
+
+* Configuration variables changed.
+
 # [1.7.0](https://github.com/nuxtus/generator/compare/v1.6.0...v1.7.0) (2022-09-13)
 
 # [1.6.0](https://github.com/nuxtus/generator/compare/v1.5.0...v1.6.0) (2022-09-12)
