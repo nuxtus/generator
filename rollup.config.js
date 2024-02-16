@@ -2,7 +2,7 @@ import * as path from "path"
 
 import { babel } from "@rollup/plugin-babel"
 import copy from "rollup-plugin-copy-assets"
-import pkg from "./package.json"
+import pkg from "./package.json" with { type: "json" }
 import pluginCommonjs from "@rollup/plugin-commonjs"
 import pluginNodeResolve from "@rollup/plugin-node-resolve"
 import pluginTypescript from "@rollup/plugin-typescript"

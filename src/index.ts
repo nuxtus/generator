@@ -1,20 +1,37 @@
-import { AuthResult, Directus, Item, ManyItems, PartialItem, TypeMap, UserItem } from "@directus/sdk"
+import {
+	AuthenticationClient,
+	DirectusClient,
+	RestClient,
+	authentication,
+	createDirectus,
+	readCollections,
+	rest,
+	staticToken,
+} from "@directus/sdk"
 import { createPage, deletePage } from "./pages"
 
 import Chalk from "chalk"
 import { createTypes } from "./types"
 import { login } from "./login"
-import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid"
+
+export type Schema = {} // TODO: Not sure we actually will every use the Schema
+
+export type Directus = DirectusClient<Schema> &
+	AuthenticationClient<Schema> &
+	RestClient<Schema>
 
 export default class Generator {
 	chalk = Chalk
-	authToken: AuthResult | null = null
-	directus: Directus<TypeMap>
+	directus: Directus
 
 	constructor(private existingChalk?: typeof Chalk) {
 		if (existingChalk !== undefined) {
 			this.chalk = existingChalk
 		}
+
+		console.log("HERE I AM!!!!")
+
 		// Check it contains DIRECTUS_URL
 		if (
 			!process.env.hasOwnProperty("DIRECTUS_URL") ||
@@ -32,25 +49,19 @@ export default class Generator {
 
 			throw new Error("No .env file found.")
 		}
-		this.directus = new Directus(
+
+		this.directus = createDirectus(
 			process.env.DIRECTUS_URL || "http://localhost:3000"
 		)
+			.with(rest())
+			.with(authentication())
+		// .with(staticToken(<TOKEN GOES HERE>))
+
+		this.login()
 	}
 
 	public async login(): Promise<void> {
-		if (!this.validLogin()) {
-			this.authToken = await login(this.directus, this.chalk)
-		}
-	}
-
-	private validLogin(): boolean {
-		if (this.authToken === null) {
-			return false
-		}
-		if (this.authToken.expires < Date.now()) {
-			return false
-		}
-		return true
+		await login(this.directus, this.chalk)
 	}
 
 	public async createPage(
@@ -60,28 +71,25 @@ export default class Generator {
 		createPage(collectionName, singleton, this.chalk)
 	}
 
-	public async deletePage(
-		collectionName: string
-	): Promise<void> {
+	public async deletePage(collectionName: string): Promise<void> {
 		deletePage(collectionName, this.chalk)
 	}
 
 	public async createTypes(): Promise<void> {
-		await this.login()
 		await createTypes(this.directus, this.chalk)
 	}
 
-	public async getCollections(): Promise<ManyItems<Item>> {
-		await this.login()
-		return this.directus.collections.readAll()
+	public async getCollections(): Promise<unknown> {
+		// TODO: THis return type is not unknown!
+		return this.directus.request(readCollections())
 	}
 
-	public async generateStaticToken(): Promise<PartialItem<UserItem<unknown>>> {
-		await this.login();
-		const token = {
-			token: nanoid()
-		}
-		this.directus.users.me.update(token);
-		return token;
-	}
+	// public async generateStaticToken(): Promise<unknown> {
+	// 	await this.login()
+	// 	const token = {
+	// 		token: nanoid(),
+	// 	}
+	// 	this.directus.users.me.update(token)
+	// 	return token
+	// }
 }
