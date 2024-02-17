@@ -1,8 +1,9 @@
+import { OpenApiSpecOutput, readOpenApiSpec } from "@directus/sdk"
+import openapiTS, { OpenAPI3 } from "openapi-typescript"
+
 import Chalk from "chalk"
 import type { Directus } from "."
 import fs from "fs"
-import openapiTS from "openapi-typescript"
-import { readOpenApiSpec } from "@directus/sdk"
 
 /**
  * Convert Open API spec to type definitions
@@ -13,8 +14,8 @@ export async function createTypes(
 ): Promise<void> {
 	if (chalk === undefined) chalk = Chalk
 	try {
-		const openapi = await directus.request(readOpenApiSpec())
-		const types = await openapiTS(openapi.toString())
+		const openapi: OpenApiSpecOutput = await directus.request(readOpenApiSpec())
+		const types = await openapiTS(openapi.components.schemas)
 		if (!fs.existsSync("interfaces")) {
 			fs.mkdirSync("interfaces")
 		}

@@ -13,8 +13,8 @@ export async function login(
 		return
 	}
 	// LOG IN
-	const email = process.env.NUXT_PUBLIC_NUXTUS_DIRECTUS_EMAIL || ""
-	const password = process.env.NUXT_PUBLIC_NUXTUS_DIRECTUS_PASSWORD || ""
+	const email = process.env.NUXT_NUXTUS_DIRECTUS_EMAIL || ""
+	const password = process.env.NUXT_NUXTUS_DIRECTUS_PASSWORD || ""
 
 	try {
 		await directus.login(email, password)
