@@ -41,8 +41,8 @@ export default class Generator {
 				this.chalk.bold("Please add a .env file with the following content:")
 			)
 			console.log("DIRECTUS_URL=https://example.com/api")
-			console.log("NUXT_NUXTUS_DIRECTUS_EMAIL=admin@example.com")
-			console.log("NUXT_NUXTUS_DIRECTUS_PASSWORD=password")
+			console.log("NUXTUS_DIRECTUS_EMAIL=admin@example.com")
+			console.log("NUXTUS_DIRECTUS_PASSWORD=password")
 			console.log()
 
 			throw new Error("No .env file found.")
@@ -74,6 +74,7 @@ export default class Generator {
 	}
 
 	public async createTypes(): Promise<void> {
+		await this.login() // Need to be logged in as admin to get all collections
 		await createTypes(this.directus, this.chalk)
 	}
 

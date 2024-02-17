@@ -6,20 +6,20 @@ export async function login(
 	chalk: typeof Chalk
 ): Promise<void> {
 	if (
-		Object.hasOwn(process.env, "NUXT_NUXTUS_DIRECTUS_TOKEN") &&
-		process.env.NUXT_NUXTUS_DIRECTUS_TOKEN !== undefined
+		Object.hasOwn(process.env, "NUXTUS_DIRECTUS_TOKEN") &&
+		process.env.NUXTUS_DIRECTUS_TOKEN !== undefined
 	) {
-		directus.setToken(process.env.NUXT_NUXTUS_DIRECTUS_TOKEN)
+		directus.setToken(process.env.NUXTUS_DIRECTUS_TOKEN)
 		return
 	}
 	// LOG IN
-	const email = process.env.NUXT_NUXTUS_DIRECTUS_EMAIL || ""
-	const password = process.env.NUXT_NUXTUS_DIRECTUS_PASSWORD || ""
+	const email = process.env.NUXTUS_DIRECTUS_EMAIL || ""
+	const password = process.env.NUXTUS_DIRECTUS_PASSWORD || ""
 
 	try {
 		await directus.login(email, password)
 	} catch (err: any) {
-		console.log(
+		console.error(
 			chalk.red(
 				"Cannot login to Directus. Check your .env file and that Directus is running."
 			)
