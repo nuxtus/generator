@@ -49,7 +49,7 @@ export default class Generator {
 		}
 
 		this.directus = createDirectus(
-			process.env.DIRECTUS_URL || "http://localhost:3000"
+			process.env.DIRECTUS_URL || "http://localhost:8055"
 		)
 			.with(rest())
 			.with(authentication())
