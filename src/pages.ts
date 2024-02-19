@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const toCamelCase = (e: string) => {
-	return camelcase(e)
+	return camelcase(e).substring(0, 1).toUpperCase() + e.substring(1)
 }
 
 function createSingletonPage(

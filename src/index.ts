@@ -13,7 +13,6 @@ import { createPage, deletePage } from "./pages"
 import Chalk from "chalk"
 import { createTypes } from "./types"
 import { login } from "./login"
-import { nanoid } from "nanoid"
 
 export type Schema = {} // TODO: Not sure we actually will every use the Schema
 
@@ -35,15 +34,15 @@ export default class Generator {
 			!process.env.hasOwnProperty("DIRECTUS_URL") ||
 			process.env.DIRECTUS_URL === undefined
 		) {
-			console.log(this.chalk.red("No .env file found."))
-			console.log()
-			console.log(
+			console.error(this.chalk.red("No .env file found."))
+			console.error()
+			console.error(
 				this.chalk.bold("Please add a .env file with the following content:")
 			)
-			console.log("DIRECTUS_URL=https://example.com/api")
-			console.log("NUXTUS_DIRECTUS_EMAIL=admin@example.com")
-			console.log("NUXTUS_DIRECTUS_PASSWORD=password")
-			console.log()
+			console.error("DIRECTUS_URL=https://example.com/api")
+			console.error("NUXTUS_DIRECTUS_ADMIN_EMAIL=admin@example.com")
+			console.error("NUXTUS_DIRECTUS_ADMIN_PASSWORD=password")
+			console.error()
 
 			throw new Error("No .env file found.")
 		}
@@ -74,21 +73,13 @@ export default class Generator {
 	}
 
 	public async createTypes(): Promise<void> {
-		await this.login() // Need to be logged in as admin to get all collections
+		await this.login() // Need to be logged in as admin to get all collections in OAP
 		await createTypes(this.directus, this.chalk)
 	}
 
 	public async getCollections(): Promise<unknown> {
 		// TODO: THis return type is not unknown!
+		await this.login() // Need to be logged in as admin to get all collections
 		return this.directus.request(readCollections())
 	}
-
-	// public async generateStaticToken(): Promise<unknown> {
-	// 	await this.login()
-	// 	const token = {
-	// 		token: nanoid(),
-	// 	}
-	// 	this.directus.users.me.update(token)
-	// 	return token
-	// }
 }
