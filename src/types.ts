@@ -15,7 +15,6 @@ export async function createTypes(
 	if (chalk === undefined) chalk = Chalk
 	try {
 		const openapi: OpenApiSpecOutput = await directus.request(readOpenApiSpec())
-		console.log("openapi", openapi)
 		const types = await openapiTS(openapi as OpenAPI3)
 		if (!fs.existsSync("interfaces")) {
 			fs.mkdirSync("interfaces")
