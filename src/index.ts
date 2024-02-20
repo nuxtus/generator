@@ -13,6 +13,7 @@ import { createPage, deletePage } from "./pages"
 import Chalk from "chalk"
 import { createTypes } from "./types"
 import { login } from "./login"
+import { nanoid } from "nanoid"
 
 export type Schema = {} // TODO: Not sure we actually will every use the Schema
 
@@ -52,7 +53,6 @@ export default class Generator {
 		)
 			.with(rest())
 			.with(authentication())
-		// .with(staticToken(<TOKEN GOES HERE>))
 
 		this.login()
 	}
@@ -81,5 +81,12 @@ export default class Generator {
 		// TODO: THis return type is not unknown!
 		await this.login() // Need to be logged in as admin to get all collections
 		return this.directus.request(readCollections())
+	}
+
+	public async generateStaticToken(): Promise<string> {
+		await this.login()
+		const token = nanoid()
+		this.directus.setToken(token)
+		return token
 	}
 }

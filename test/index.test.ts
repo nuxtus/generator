@@ -7,38 +7,43 @@ let nuxtus: Generator
 const envBackup = process.env
 
 beforeAll(() => {
-	process.env = {
-		DIRECTUS_URL: "https://example.com/api",
-	}
+	vi.stubEnv("DIRECTUS_URL", "https://example.com/api")
+	vi.stubEnv("NUXTUS_DIRECTUS_ADMIN_EMAIL", "admin@example.com")
+	vi.stubEnv("NUXTUS_DIRECTUS_ADMIN_PASSWORD", "password")
 
 	vi.mock("@directus/sdk", () => {
-		const Directus = vi.fn()
-		Directus.prototype.auth = {
-			login: vi.fn().mockImplementation(() => {
-				return {
-					expires: Date.now() + 100000,
-				}
-			}),
-		}
-		;(Directus.prototype.users = {
-			me: {
-				update: vi.fn().mockImplementation(() => {
+		const createDirectus = vi.fn().mockImplementation(() => {
+			return {
+				with: vi.fn().mockImplementation(() => {
 					return {
-						token: "123456789",
+						with: vi.fn().mockImplementation(() => {
+							return {
+								login: vi.fn(),
+								request: vi.fn().mockImplementation(() => {
+									return {
+										openapi: "3.0.0",
+										components: {},
+									}
+								}),
+								setToken: vi.fn(),
+							}
+						}),
 					}
 				}),
-			},
-		}),
-			(Directus.prototype.server = {
-				oas: vi.fn().mockImplementation(() => {
-					return {
-						openapi: "3.0.0",
-						components: {},
-					}
-				}),
-			})
+			}
+		})
 
-		return { Directus }
+		const rest = vi.fn().mockImplementation(() => {
+			return {}
+		})
+
+		const authentication = vi.fn().mockImplementation(() => {
+			return {}
+		})
+
+		const readOpenApiSpec = vi.fn()
+
+		return { createDirectus, rest, authentication, readOpenApiSpec }
 	})
 
 	nuxtus = new Generator()
@@ -63,14 +68,16 @@ test("Create collection pages", async () => {
 	expect(fs.existsSync("pages/test")).toBe(true)
 	expect(fs.existsSync("pages/test/index.vue")).toBe(true)
 	const indexPage = fs.readFileSync("pages/test/index.vue")
-	expect(indexPage.includes('collection: "test",')).toBe(true)
-	expect(indexPage.includes(`const { getItems } = useDirectusItems();`)).toBe(
-		true
-	)
-	const individualPage = fs.readFileSync("pages/test/[id].vue")
-	expect(individualPage.includes('collection: "test",')).toBe(true)
+	expect(indexPage.includes("useAsyncData <Test[] | null>")).toBe(true)
 	expect(
-		individualPage.includes("const { getItemById } = useDirectusItems()")
+		indexPage.includes(`return $directus.request($readItems('test', query))`)
+	).toBe(true)
+	const individualPage = fs.readFileSync("pages/test/[id].vue")
+	expect(individualPage.includes("<div>{{ test }}</div>")).toBe(true)
+	expect(
+		individualPage.includes(
+			"return $directus.request($readItem('test', route.params.id, query))"
+		)
 	).toBe(true)
 })
 
@@ -79,10 +86,10 @@ test("Create singleton page", async () => {
 	await nuxtus.createPage("test2", true)
 	expect(fs.existsSync("pages/test2/index.vue")).toBe(true)
 	const indexPage = fs.readFileSync("pages/test2/index.vue")
-	expect(indexPage.includes('collection: "test2"')).toBe(true)
 	expect(
-		indexPage.includes(` const { getSingletonItem } = useDirectusItems();`)
+		indexPage.includes("useAsyncData <Test2 | null> ('test2', () => {")
 	).toBe(true)
+	expect(indexPage.includes(`<h1>Test2</h1>`)).toBe(true)
 })
 
 test("Delete collection pages", async () => {
@@ -102,7 +109,8 @@ test("create types", async () => {
 	)
 })
 
-// test("create token", async () => {
-// 	const authUser = await nuxtus.generateStaticToken()
-// 	expect(authUser.token).toBeDefined()
-// })
+test("create token", async () => {
+	const authUser = await nuxtus.generateStaticToken()
+	expect(authUser).toBeDefined()
+	expect(authUser).toBeTypeOf("string")
+})

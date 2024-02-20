@@ -8,7 +8,7 @@ const query: Query<components, {$ collection | camelcase $}> = {
   // Add your filters and query customisations here
 }
 
-const { data: {$ collection $}, error } = useAsyncData < {$ collection | camelcase $} | null > ('{$ collection $}', () => {
+const { data: {$ collection $}, error } = useAsyncData <{$ collection | camelcase $} | null> ('{$ collection $}', () => {
   return $directus.request($readItem('{$ collection $}', route.params.id, query))
 })
 $checkError(error)
