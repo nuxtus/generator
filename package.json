@@ -68,37 +68,7 @@
       [
         "@semantic-release/commit-analyzer",
         {
-          "releaseRules": [
-            {
-              "breaking": true,
-              "release": "major"
-            },
-            {
-              "type": "feat",
-              "release": "minor"
-            },
-            {
-              "type": "revert",
-              "release": "patch"
-            },
-            {
-              "type": "refactor",
-              "release": "minor"
-            },
-            {
-              "type": "fix",
-              "release": "patch"
-            },
-            {
-              "type": "docs",
-              "scope": "README",
-              "release": "patch"
-            },
-            {
-              "type": "chore",
-              "release": "patch"
-            }
-          ]
+          "preset": "angular"
         }
       ],
       "@semantic-release/release-notes-generator",
