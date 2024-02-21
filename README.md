@@ -6,7 +6,7 @@ For more details visit [nuxtus.com](https://nuxtus.com) or [read the documentati
 
 ## Usage
 
-```bash
+```bash 
 $ npm install @nuxtus/generator
 ```
 
