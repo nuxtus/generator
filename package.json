@@ -67,6 +67,14 @@
         {
           "releaseRules": [
             {
+              "breaking": true,
+              "release": "major"
+            },
+            {
+              "type": "feat",
+              "release": "minor"
+            },
+            {
               "type": "revert",
               "release": "patch"
             },
@@ -76,6 +84,15 @@
             },
             {
               "type": "fix",
+              "release": "patch"
+            },
+            {
+              "type": "docs",
+              "scope": "README",
+              "release": "patch"
+            },
+            {
+              "type": "chore",
               "release": "patch"
             }
           ]
