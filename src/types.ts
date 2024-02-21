@@ -1,20 +1,21 @@
-import { Directus, TypeMap } from "@directus/sdk"
+import { OpenApiSpecOutput, readOpenApiSpec } from "@directus/sdk"
+import openapiTS, { OpenAPI3 } from "openapi-typescript"
 
 import Chalk from "chalk"
+import type { Directus } from "."
 import fs from "fs"
-import openapiTS from "openapi-typescript"
 
 /**
  * Convert Open API spec to type definitions
  */
 export async function createTypes(
-	directus: Directus<TypeMap>,
+	directus: Directus,
 	chalk?: typeof Chalk
 ): Promise<void> {
 	if (chalk === undefined) chalk = Chalk
 	try {
-		const openapi = await directus.server.oas()
-		const types = await openapiTS(await openapi)
+		const openapi: OpenApiSpecOutput = await directus.request(readOpenApiSpec())
+		const types = await openapiTS(openapi as OpenAPI3)
 		if (!fs.existsSync("interfaces")) {
 			fs.mkdirSync("interfaces")
 		}

@@ -1,6 +1,7 @@
 import * as fs from "fs"
 import * as path from "path"
 
+import camelcase from "camelcase"
 import chalk from "chalk"
 import { fileURLToPath } from "url"
 import nunjucks from "nunjucks"
@@ -9,8 +10,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const toCamelCase = (e: string) => {
-	e = e.replace(/_([a-z])/g, (g) => g[1].toUpperCase())
-	return e[0].toUpperCase() + e.slice(1)
+	return camelcase(e).substring(0, 1).toUpperCase() + e.substring(1)
 }
 
 function createSingletonPage(
@@ -44,7 +44,10 @@ function showError(
 	console.error(error)
 }
 
-export function deletePage(pageName: string, localChalk: typeof chalk | undefined = undefined): void {
+export function deletePage(
+	pageName: string,
+	localChalk: typeof chalk | undefined = undefined
+): void {
 	const pageFolder = path.join("pages", pageName)
 	try {
 		fs.rmSync(pageFolder, { recursive: true })

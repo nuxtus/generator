@@ -1,33 +1,35 @@
-import { AuthResult, Directus, TypeMap } from "@directus/sdk"
-
 import Chalk from "chalk"
+import { Directus } from "."
 
 export async function login(
-	directus: Directus<TypeMap>,
+	directus: Directus,
 	chalk: typeof Chalk
-): Promise<AuthResult> {
-	// TODO: Should be checking nuxt config object for this instead/also
-	if (Object.hasOwn(process.env, 'NUXT_PUBLIC_NUXTUS_DIRECTUS_TOKEN') && process.env.NUXT_PUBLIC_NUXTUS_DIRECTUS_TOKEN !== undefined) {
-		const token = {
-			access_token: process.env.NUXT_PUBLIC_NUXTUS_DIRECTUS_TOKEN,
-			expires: Date.now() + 1000 * 60 * 60 * 24 * 365 // An arbitary expiry, Directus static tokens do not expire
-		}
-		await directus.auth.static(token.access_token)
-		return token
+): Promise<void> {
+	// NOTE: This is for generation of pages only so always use admin
+	if (
+		!("NUXTUS_DIRECTUS_ADMIN_EMAIL" in process.env) ||
+		!("NUXTUS_DIRECTUS_ADMIN_PASSWORD" in process.env)
+	) {
+		console.error(
+			"Directus admin NUXTUS_DIRECTUS_ADMIN_EMAIL or NUXTUS_DIRECTUS_ADMIN_PASSWORD not found in .env"
+		)
+		throw new Error(
+			"Directus admin NUXTUS_DIRECTUS_ADMIN_EMAIL or NUXTUS_DIRECTUS_ADMIN_PASSWORD not found in .env"
+		)
 	}
+
 	// LOG IN
-	const email = process.env.NUXT_PUBLIC_NUXTUS_DIRECTUS_EMAIL || ""
-	const password = process.env.NUXT_PUBLIC_NUXTUS_DIRECTUS_PASSWORD || ""
+	const email = process.env.NUXTUS_DIRECTUS_ADMIN_EMAIL || ""
+	const password = process.env.NUXTUS_DIRECTUS_ADMIN_PASSWORD || ""
 
 	try {
-		const token = await directus.auth.login({ email, password })
-		return token
+		await directus.login(email, password)
 	} catch (err: any) {
-		console.log(
+		console.error(
 			chalk.red(
 				"Cannot login to Directus. Check your .env file and that Directus is running."
 			)
 		)
-		throw new Error("Cannot login to Directus. " + err.message)
+		throw err
 	}
 }
