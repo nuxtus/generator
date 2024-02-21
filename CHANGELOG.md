@@ -1,5 +1,22 @@
 Changelog
 
+# [1.9.0](https://github.com/nuxtus/generator/compare/v1.8.0...v1.9.0) (2024-02-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @directus/sdk to v15 ([e500026](https://github.com/nuxtus/generator/commit/e5000269ebdd9c68c4b36767516ad5cbd164938e))
+* **deps:** update dependency chalk to v5.3.0 ([47d3d3f](https://github.com/nuxtus/generator/commit/47d3d3f49ab1c797478d13dfdec7c94717d3f6f4))
+* **deps:** update dependency nanoid to v4.0.2 ([497a8e4](https://github.com/nuxtus/generator/commit/497a8e4aefdc53fa23aee513fd1117cb15b77d02))
+* **deps:** update dependency nanoid to v5 ([d3a1356](https://github.com/nuxtus/generator/commit/d3a135627778d34fdedbce6fcdf917fefe56e280))
+* **deps:** update dependency nunjucks to v3.2.4 ([1dd2c4a](https://github.com/nuxtus/generator/commit/1dd2c4a67cf8dd47f4a6ae0231b998d7630064ca))
+* **deps:** update dependency openapi-typescript to v6.7.4 ([817a284](https://github.com/nuxtus/generator/commit/817a2845816a2310e0ca50c9b7cc745df2f81d0d))
+
+
+### Features
+
+* :sparkles: update templates to use Directus sdk ([d1f314f](https://github.com/nuxtus/generator/commit/d1f314f404c77b653065985a3ae04e6533fa8c22))
+
 # [1.8.0](https://github.com/nuxtus/generator/compare/v1.7.0...v1.8.0) (2022-11-18)
 
 
