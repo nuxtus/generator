@@ -5,6 +5,9 @@
   "main": "dist/generator.es.js",
   "module": "dist/generator.es.js",
   "type": "module",
+  "engines": {
+    "node": "20"
+  },
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage",
