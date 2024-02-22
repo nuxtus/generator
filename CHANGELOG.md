@@ -1,5 +1,13 @@
 Changelog
 
+## [1.9.1](https://github.com/nuxtus/generator/compare/v1.9.0...v1.9.1) (2024-02-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @directus/sdk to v15.0.1 ([#79](https://github.com/nuxtus/generator/issues/79)) ([b7634c1](https://github.com/nuxtus/generator/commit/b7634c1ccb146dc580087b45b1de416f6e27dfd1))
+* **deps:** update dependency nanoid to v5.0.6 ([315b2e7](https://github.com/nuxtus/generator/commit/315b2e7720236892c48b03f145f9c1124a80a6ad))
+
 # [1.9.0](https://github.com/nuxtus/generator/compare/v1.8.0...v1.9.0) (2024-02-21)
 
 
