@@ -45,7 +45,7 @@
     "@semantic-release/github": "9.2.6",
     "@semantic-release/release-notes-generator": "12.1.0",
     "@types/nunjucks": "3.2.6",
-    "@typescript-eslint/eslint-plugin": "7.0.1",
+    "@typescript-eslint/eslint-plugin": "7.0.2",
     "eslint": "8.56.0",
     "rollup": "4.10.0",
     "rollup-plugin-copy-assets": "2.0.3",
