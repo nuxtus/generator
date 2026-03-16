@@ -60,7 +60,7 @@
     "chalk": "^5.0.1",
     "nanoid": "^5.0.5",
     "nunjucks": "^3.2.3",
-    "openapi-typescript": "^6.0.0"
+    "openapi-typescript": "^7.0.0"
   },
   "release": {
     "branches": "main",
