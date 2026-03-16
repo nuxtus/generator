@@ -6,7 +6,7 @@
   "module": "dist/generator.es.js",
   "type": "module",
   "engines": {
-    "node": "20"
+    "node": "24"
   },
   "scripts": {
     "test": "vitest",
@@ -120,6 +120,6 @@
     ]
   },
   "volta": {
-    "node": "20.11.1"
+    "node": "24.14.0"
   }
 }
