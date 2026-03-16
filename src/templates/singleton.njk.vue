@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Query } from "@directus/sdk"
 import type { components } from "../../interfaces/nuxtus"
 type {$ collection | camelcase $} = components["schemas"]["Items{$ collection | camelcase $}"]
 const { $directus, $readSingleton, $checkError } = useNuxtApp()
