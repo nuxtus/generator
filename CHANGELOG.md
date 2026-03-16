@@ -1,5 +1,12 @@
 Changelog
 
+## [1.9.3](https://github.com/nuxtus/generator/compare/v1.9.2...v1.9.3) (2026-03-16)
+
+
+### Bug Fixes
+
+* add missing Query type import to individual and singleton templates ([9879db6](https://github.com/nuxtus/generator/commit/9879db6ae2bbef4209148d66c68272ca98d96b64))
+
 ## [1.9.2](https://github.com/nuxtus/generator/compare/v1.9.1...v1.9.2) (2026-03-16)
 
 
