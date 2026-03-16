@@ -55,7 +55,7 @@
     "vitest": "1.6.1"
   },
   "dependencies": {
-    "@directus/sdk": "^15.0.0",
+    "@directus/sdk": "^21.0.0",
     "camelcase": "^8.0.0",
     "chalk": "^5.0.1",
     "nanoid": "^5.0.5",
