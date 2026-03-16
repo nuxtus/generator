@@ -1,5 +1,5 @@
 import { OpenApiSpecOutput, readOpenApiSpec } from "@directus/sdk"
-import openapiTS, { OpenAPI3 } from "openapi-typescript"
+import openapiTS, { astToString, OpenAPI3 } from "openapi-typescript"
 
 import Chalk from "chalk"
 import type { Directus } from "."
@@ -15,7 +15,8 @@ export async function createTypes(
 	if (chalk === undefined) chalk = Chalk
 	try {
 		const openapi: OpenApiSpecOutput = await directus.request(readOpenApiSpec())
-		const types = await openapiTS(openapi as OpenAPI3)
+		const ast = await openapiTS(openapi as OpenAPI3)
+		const types = astToString(ast)
 		if (!fs.existsSync("interfaces")) {
 			fs.mkdirSync("interfaces")
 		}
