@@ -23,7 +23,7 @@ export async function login(
 	const password = process.env.NUXTUS_DIRECTUS_ADMIN_PASSWORD || ""
 
 	try {
-		await directus.login(email, password)
+		await directus.login({ email, password })
 	} catch (err: any) {
 		console.error(
 			chalk.red(
