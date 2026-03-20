@@ -1,5 +1,32 @@
 Changelog
 
+## [1.9.3](https://github.com/nuxtus/generator/compare/v1.9.2...v1.9.3) (2026-03-16)
+
+
+### Bug Fixes
+
+* add missing Query type import to individual and singleton templates ([9879db6](https://github.com/nuxtus/generator/commit/9879db6ae2bbef4209148d66c68272ca98d96b64))
+
+## [1.9.2](https://github.com/nuxtus/generator/compare/v1.9.1...v1.9.2) (2026-03-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @directus/sdk to v15.1.0 ([f5e59cc](https://github.com/nuxtus/generator/commit/f5e59cc5e629e4f2ad8f6b5d1d2b967384f6cfd0))
+* **deps:** update dependency @directus/sdk to v21 ([35c8e44](https://github.com/nuxtus/generator/commit/35c8e441e9f0180380fbe41d8eda0be153bd7a99))
+* **deps:** update dependency camelcase to v9 ([d7e7bcd](https://github.com/nuxtus/generator/commit/d7e7bcdb939ab438357440e544fa7a31f2ee88d2))
+* **deps:** update dependency openapi-typescript to v6.7.6 ([523d97a](https://github.com/nuxtus/generator/commit/523d97a3f940370a55c65ec868e117c1388de010))
+* **deps:** update dependency openapi-typescript to v7 ([5c4d631](https://github.com/nuxtus/generator/commit/5c4d631b2481b584f4cba5678b2d87aac15629b7))
+* update for openapi-typescript v7 and vitest 4 compatibility ([c870807](https://github.com/nuxtus/generator/commit/c870807f1a52dbc300c90f66bec5d8a663a268d1))
+
+## [1.9.1](https://github.com/nuxtus/generator/compare/v1.9.0...v1.9.1) (2024-02-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @directus/sdk to v15.0.1 ([#79](https://github.com/nuxtus/generator/issues/79)) ([b7634c1](https://github.com/nuxtus/generator/commit/b7634c1ccb146dc580087b45b1de416f6e27dfd1))
+* **deps:** update dependency nanoid to v5.0.6 ([315b2e7](https://github.com/nuxtus/generator/commit/315b2e7720236892c48b03f145f9c1124a80a6ad))
+
 # [1.9.0](https://github.com/nuxtus/generator/compare/v1.8.0...v1.9.0) (2024-02-21)
 
 
