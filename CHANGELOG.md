@@ -1,5 +1,12 @@
 Changelog
 
+## [1.9.4](https://github.com/nuxtus/generator/compare/v1.9.3...v1.9.4) (2026-03-20)
+
+
+### Bug Fixes
+
+* Modify login to reflect new Directus SDK format ([d00582a](https://github.com/nuxtus/generator/commit/d00582acd17e419fbc122751b67684242f01c2ce))
+
 ## [1.9.3](https://github.com/nuxtus/generator/compare/v1.9.2...v1.9.3) (2026-03-16)
 
 
