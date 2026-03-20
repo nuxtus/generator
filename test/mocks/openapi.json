@@ -7201,7 +7201,7 @@
 			"patch": {
 				"summary": "Update an Extension",
 				"description": "Update an existing extension.",
-				"operationId": "updateExtensions",
+				"operationId": "updateBundledExtension",
 				"parameters": [
 					{
 						"in": "path",

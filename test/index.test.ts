@@ -3,6 +3,41 @@ import { afterAll, afterEach, beforeAll, expect, test, vi } from "vitest"
 import Generator from "../src/index"
 import fs from "node:fs"
 
+vi.mock("@directus/sdk", () => {
+	const createDirectus = vi.fn().mockImplementation(() => {
+		return {
+			with: vi.fn().mockImplementation(() => {
+				return {
+					with: vi.fn().mockImplementation(() => {
+						return {
+							login: vi.fn(),
+							request: vi.fn().mockImplementation(() => {
+								return {
+									openapi: "3.0.0",
+									components: {},
+								}
+							}),
+							setToken: vi.fn(),
+						}
+					}),
+				}
+			}),
+		}
+	})
+
+	const rest = vi.fn().mockImplementation(() => {
+		return {}
+	})
+
+	const authentication = vi.fn().mockImplementation(() => {
+		return {}
+	})
+
+	const readOpenApiSpec = vi.fn()
+
+	return { createDirectus, rest, authentication, readOpenApiSpec }
+})
+
 let nuxtus: Generator
 const envBackup = process.env
 
@@ -10,41 +45,6 @@ beforeAll(() => {
 	vi.stubEnv("DIRECTUS_URL", "https://example.com/api")
 	vi.stubEnv("NUXTUS_DIRECTUS_ADMIN_EMAIL", "admin@example.com")
 	vi.stubEnv("NUXTUS_DIRECTUS_ADMIN_PASSWORD", "password")
-
-	vi.mock("@directus/sdk", () => {
-		const createDirectus = vi.fn().mockImplementation(() => {
-			return {
-				with: vi.fn().mockImplementation(() => {
-					return {
-						with: vi.fn().mockImplementation(() => {
-							return {
-								login: vi.fn(),
-								request: vi.fn().mockImplementation(() => {
-									return {
-										openapi: "3.0.0",
-										components: {},
-									}
-								}),
-								setToken: vi.fn(),
-							}
-						}),
-					}
-				}),
-			}
-		})
-
-		const rest = vi.fn().mockImplementation(() => {
-			return {}
-		})
-
-		const authentication = vi.fn().mockImplementation(() => {
-			return {}
-		})
-
-		const readOpenApiSpec = vi.fn()
-
-		return { createDirectus, rest, authentication, readOpenApiSpec }
-	})
 
 	nuxtus = new Generator()
 })
