@@ -2,6 +2,7 @@ import {
 	AuthenticationClient,
 	DirectusClient,
 	RestClient,
+	StaticTokenClient,
 	authentication,
 	createDirectus,
 	readCollections,
@@ -19,7 +20,8 @@ export type Schema = {} // TODO: Not sure we actually will every use the Schema
 
 export type Directus = DirectusClient<Schema> &
 	AuthenticationClient<Schema> &
-	RestClient<Schema>
+	RestClient<Schema> &
+	StaticTokenClient<Schema>
 
 export default class Generator {
 	chalk = Chalk
@@ -53,11 +55,18 @@ export default class Generator {
 		)
 			.with(rest())
 			.with(authentication())
-
-		this.login()
 	}
 
 	public async login(): Promise<void> {
+		const staticTokenValue = process.env.NUXTUS_DIRECTUS_STATIC_TOKEN
+		if (staticTokenValue) {
+			this.directus = createDirectus(
+				process.env.DIRECTUS_URL || "http://localhost:8055"
+			)
+				.with(rest())
+				.with(staticToken(staticTokenValue))
+			return
+		}
 		await login(this.directus, this.chalk)
 	}
 
@@ -78,14 +87,39 @@ export default class Generator {
 	}
 
 	public async getCollections(): Promise<unknown> {
-		// TODO: THis return type is not unknown!
-		await this.login() // Need to be logged in as admin to get all collections
-		return this.directus.request(readCollections())
+		await this.login()
+		const result: any = await this.directus.request(readCollections())
+		return Array.isArray(result) ? result : (result.data || result)
 	}
 
 	public async generateStaticToken(): Promise<string> {
 		await this.login()
 		const token = nanoid()
+		const accessToken = await this.directus.getToken()
+		const meResp = await fetch(
+			process.env.DIRECTUS_URL + "/users/me",
+			{ headers: { Authorization: "Bearer " + accessToken } }
+		)
+		const meData = await meResp.json()
+		const userId = meData.data.id
+		const resp = await fetch(
+			process.env.DIRECTUS_URL + "/users/" + userId,
+			{
+				method: "PATCH",
+				headers: {
+					Authorization: "Bearer " + accessToken,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ token }),
+			}
+		)
+		if (!resp.ok) {
+			const err: any = await resp.json()
+			throw new Error(
+				"Failed to register static token: " +
+					(err.errors?.[0]?.message || resp.statusText)
+			)
+		}
 		this.directus.setToken(token)
 		return token
 	}
