@@ -19,9 +19,8 @@ import { nanoid } from "nanoid"
 export type Schema = {} // TODO: Not sure we actually will every use the Schema
 
 export type Directus = DirectusClient<Schema> &
-	AuthenticationClient<Schema> &
 	RestClient<Schema> &
-	StaticTokenClient<Schema>
+	(AuthenticationClient<Schema> | StaticTokenClient<Schema>)
 
 export default class Generator {
 	chalk = Chalk
@@ -120,7 +119,11 @@ export default class Generator {
 					(err.errors?.[0]?.message || resp.statusText)
 			)
 		}
-		this.directus.setToken(token)
+		this.directus = createDirectus(
+			process.env.DIRECTUS_URL || "http://localhost:8055"
+		)
+			.with(rest())
+			.with(staticToken(token))
 		return token
 	}
 }
