@@ -63,16 +63,16 @@ export function createPage(
 	localChalk: typeof chalk | undefined = undefined
 ): void {
 	let templateFolder = path.join(__dirname, "templates")
-	if (!fs.existsSync(templateFolder)) {
+		if (!fs.existsSync(templateFolder)) {
 		templateFolder = path.join(
 			process.cwd(),
 			"node_modules",
-			"@nuxtus",
-			"generator",
+			"@resultcrafter",
+			"nuxtus-generator",
 			"dist",
 			"templates"
 		)
-	}
+		}
 
 	const env: nunjucks.Environment = nunjucks.configure(templateFolder, {
 		tags: {
