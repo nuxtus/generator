@@ -10,11 +10,6 @@ const { data, error } = useAsyncData<{$ collection | camelcase $}[] | null>('{$ 
   return $directus.request($readItems('{$ collection $}', query))
 })
 $checkError(error)
-
-function formatDate(date: string | undefined): string {
-  if (!date) return ''
-  return new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-}
 </script>
 
 <template>
@@ -29,9 +24,6 @@ function formatDate(date: string | undefined): string {
             <template v-else>{{ item.id }}</template>
           </h2>
         </NuxtLink>
-        <p v-if="item.date_created" class="text-sm text-gray-500 mt-1">{{ formatDate(item.date_created) }}</p>
-        <p v-if="item.excerpt" class="text-gray-600 mt-2">{{ item.excerpt }}</p>
-        <p v-else-if="item.description" class="text-gray-600 mt-2">{{ item.description }}</p>
       </article>
     </div>
     <p v-else-if="data && data.length === 0" class="text-gray-500">No {$ collection $} found.</p>
