@@ -46,7 +46,7 @@
     "@semantic-release/release-notes-generator": "12.1.0",
     "@types/nunjucks": "3.2.6",
     "@typescript-eslint/eslint-plugin": "8.57.2",
-    "eslint": "10.1.0",
+    "eslint": "10.3.0",
     "rollup": "4.60.1",
     "rollup-plugin-copy-assets": "2.0.3",
     "semantic-release": "23.1.1",
