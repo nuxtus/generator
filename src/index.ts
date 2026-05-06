@@ -6,8 +6,10 @@ import {
 	authentication,
 	createDirectus,
 	readCollections,
+	readMe,
 	rest,
 	staticToken,
+	updateUser,
 } from "@directus/sdk"
 import { createPage, deletePage } from "./pages"
 
@@ -64,6 +66,11 @@ export default class Generator {
 			)
 				.with(rest())
 				.with(staticToken(staticTokenValue))
+			console.warn(
+				this.chalk.yellow(
+					"Using static token auth. Ensure the token has admin-level permissions for generation operations."
+				)
+			)
 			return
 		}
 		await login(this.directus, this.chalk)
@@ -94,31 +101,8 @@ export default class Generator {
 	public async generateStaticToken(): Promise<string> {
 		await this.login()
 		const token = nanoid()
-		const accessToken = await this.directus.getToken()
-		const meResp = await fetch(
-			process.env.DIRECTUS_URL + "/users/me",
-			{ headers: { Authorization: "Bearer " + accessToken } }
-		)
-		const meData = await meResp.json()
-		const userId = meData.data.id
-		const resp = await fetch(
-			process.env.DIRECTUS_URL + "/users/" + userId,
-			{
-				method: "PATCH",
-				headers: {
-					Authorization: "Bearer " + accessToken,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ token }),
-			}
-		)
-		if (!resp.ok) {
-			const err: any = await resp.json()
-			throw new Error(
-				"Failed to register static token: " +
-					(err.errors?.[0]?.message || resp.statusText)
-			)
-		}
+		const me = await this.directus.request(readMe())
+		await this.directus.request(updateUser(me.id, { token }))
 		this.directus = createDirectus(
 			process.env.DIRECTUS_URL || "http://localhost:8055"
 		)
