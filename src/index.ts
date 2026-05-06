@@ -2,11 +2,14 @@ import {
 	AuthenticationClient,
 	DirectusClient,
 	RestClient,
+	StaticTokenClient,
 	authentication,
 	createDirectus,
 	readCollections,
+	readMe,
 	rest,
 	staticToken,
+	updateUser,
 } from "@directus/sdk"
 import { createPage, deletePage } from "./pages"
 
@@ -18,8 +21,8 @@ import { nanoid } from "nanoid"
 export type Schema = {} // TODO: Not sure we actually will every use the Schema
 
 export type Directus = DirectusClient<Schema> &
-	AuthenticationClient<Schema> &
-	RestClient<Schema>
+	RestClient<Schema> &
+	(AuthenticationClient<Schema> | StaticTokenClient<Schema>)
 
 export default class Generator {
 	chalk = Chalk
@@ -53,11 +56,23 @@ export default class Generator {
 		)
 			.with(rest())
 			.with(authentication())
-
-		this.login()
 	}
 
 	public async login(): Promise<void> {
+		const staticTokenValue = process.env.NUXTUS_DIRECTUS_STATIC_TOKEN
+		if (staticTokenValue) {
+			this.directus = createDirectus(
+				process.env.DIRECTUS_URL || "http://localhost:8055"
+			)
+				.with(rest())
+				.with(staticToken(staticTokenValue))
+			console.warn(
+				this.chalk.yellow(
+					"Using static token auth. Ensure the token has admin-level permissions for generation operations."
+				)
+			)
+			return
+		}
 		await login(this.directus, this.chalk)
 	}
 
@@ -78,15 +93,21 @@ export default class Generator {
 	}
 
 	public async getCollections(): Promise<unknown> {
-		// TODO: THis return type is not unknown!
-		await this.login() // Need to be logged in as admin to get all collections
-		return this.directus.request(readCollections())
+		await this.login()
+		const result: any = await this.directus.request(readCollections())
+		return Array.isArray(result) ? result : (result.data || result)
 	}
 
 	public async generateStaticToken(): Promise<string> {
 		await this.login()
 		const token = nanoid()
-		this.directus.setToken(token)
+		const me = await this.directus.request(readMe())
+		await this.directus.request(updateUser(me.id, { token }))
+		this.directus = createDirectus(
+			process.env.DIRECTUS_URL || "http://localhost:8055"
+		)
+			.with(rest())
+			.with(staticToken(token))
 		return token
 	}
 }

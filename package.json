@@ -1,6 +1,6 @@
 {
   "name": "@nuxtus/generator",
-  "version": "1.9.4",
+  "version": "1.9.6",
   "description": "Package responsible for generating a Nuxt page from Directus collection.",
   "main": "dist/generator.es.js",
   "module": "dist/generator.es.js",
@@ -55,7 +55,7 @@
     "vitest": "4.1.0"
   },
   "dependencies": {
-    "@directus/sdk": "^21.0.0",
+    "@directus/sdk": "^21.2.0",
     "camelcase": "^9.0.0",
     "chalk": "^5.0.1",
     "nanoid": "^5.0.5",
